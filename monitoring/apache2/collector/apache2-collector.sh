@@ -4,7 +4,7 @@
 # Ces metriques sont ecrites dans un fichier temporaire ecrase a chaque appel
 #
 # le format des donnees du fichier genere sont :
-# <CPU Load>:<Requests per second>:<Bytes per second>:<Bytes per request>:<Max Workers>:<Total Workers>:<Total Busy Workers>:<Total Idle Workers>
+# <1=CPU Load>:<2=Requests per second>:<3=Bytes per second>:<4=Bytes per request>:<5=Max Workers>:<6=Total Workers>:<7=Total Busy Workers>:<8=Total Idle Workers>:<9=Waiting for Connection Slots>:<10=Starting up Slots>:<11=Reading Request Slots>:<12=Sending Reply Slots>:<13=Keepalive (read) Slots>:<14=DNS Lookup Slots>:<15=Closing connection Slots>:<16=Logging Slots>:<17=Gracefully finishing Slots>:<18=Idle cleanup of worker Slots>:<19=Open slots with no current process>
 #
 # pour recuperer ensuite ces donnes depuis un autre script il suffit d'utiliser une commande du type :
 # # recuperer le CPU Load :
@@ -13,22 +13,22 @@
 #   cat /tmp/apache-data.txt | cut -f6 -d:
 # il suffit donc de jouer sur le nombre passe au parametre -f de la commande cut pour choisir la donnee a recuperer
 
-# Reglages du Script
+# Tuning of the script
 URL_APACHE_STATUS="http://localhost/server-status?auto"
-DATA_FILE=/tmp/apache-data.txt
+OUTPUT_DATA_FILE=/tmp/apache-data.txt
 
 ################################################
-### Ne rien modifier apres cette ligne
+### DO NOT TOUCH BELOW THIS LINE
 ################################################
-# fonctions utilitaires
+# utilities fonctions
 trim() { echo -n $1; }
 count_char() { echo "$1" | awk -F$2 '{ t += (NF - 1) } END {print t}'; }
 
-# recuperation des donnees brutes
+# fetching apache server-status data
 DATA=$(curl ${URL_APACHE_STATUS} 2> /dev/null)
 #echo "${DATA}"
 
-# recuperation des donnees unitaires
+# fetching each data
 CPU_LOAD=$(trim $(echo "${DATA}" | egrep -e "^CPULoad: +([0-9]*\.[0-9]+)$" | cut -f2 -d:))
 REQ_PER_SEC=$(trim $(echo "${DATA}" | egrep -e "^ReqPerSec: +([0-9]*\.[0-9]+)$" | cut -f2 -d:))
 BYTES_PER_SEC=$(trim $(echo "${DATA}" | egrep -e "^BytesPerSec: +([0-9]*\.[0-9]+)$" | cut -f2 -d:))
@@ -51,29 +51,10 @@ SLOT_CLEANUP=$(count_char "${SCOREBOARD}" "I")
 SLOT_OPEN=$(count_char "${SCOREBOARD}" ".")
 
 #echo "##############"
-#echo "${CPU_LOAD}"
-#echo "${REQ_PER_SEC}"
-#echo "${BYTES_PER_SEC}"
-#echo "${BYTES_PER_REQ}"
-#echo "${WORKERS_BUSY}"
-#echo "${WORKERS_IDLE}"
-#echo "${WORKERS_TOTAL}"
-#echo "${SCOREBOARD}"
-#echo ${WORKERS_MAX}
-#echo ${SLOT_WAITING}
-#echo ${SLOT_STARTING}
-#echo ${SLOT_READING}
-#echo ${SLOT_SENDING}
-#echo ${SLOT_KEEPALIVE}
-#echo ${SLOT_DNSLOOK}
-#echo ${SLOT_CLOSING}
-#echo ${SLOT_LOGGING}
-#echo ${SLOT_FINISHING}
-#echo ${SLOT_CLEANUP}
-#echo ${SLOT_OPEN}
+#echo "${CPU_LOAD}"; echo "${REQ_PER_SEC}"; echo "${BYTES_PER_SEC}"; echo "${BYTES_PER_REQ}"; echo "${WORKERS_BUSY}"; echo "${WORKERS_IDLE}"; echo "${WORKERS_TOTAL}"; echo "${SCOREBOARD}"; echo ${WORKERS_MAX}; echo ${SLOT_WAITING}; echo ${SLOT_STARTING}; echo ${SLOT_READING}; echo ${SLOT_SENDING}; echo ${SLOT_KEEPALIVE}; echo ${SLOT_DNSLOOK}; echo ${SLOT_CLOSING}; echo ${SLOT_LOGGING}; echo ${SLOT_FINISHING}; echo ${SLOT_CLEANUP}; echo ${SLOT_OPEN}
 #echo "##############"
 
-# fabrication de la chaine de sortie et ecriture du fichier
+# agregating data into 1 line & writing the output data file
 DATA_LINE="0"${CPU_LOAD}":0"${REQ_PER_SEC}":0"${BYTES_PER_SEC}":0"${BYTES_PER_REQ}":"${WORKERS_MAX}":"${WORKERS_TOTAL}":"${WORKERS_BUSY}":"${WORKERS_IDLE}":"${SLOT_WAITING}":"${SLOT_STARTING}":"${SLOT_READING}":"${SLOT_SENDING}":"${SLOT_KEEPALIVE}":"${SLOT_DNSLOOK}":"${SLOT_CLOSING}":"${SLOT_LOGGING}":"${SLOT_FINISHING}":"${SLOT_CLEANUP}":"${SLOT_OPEN}
 #echo ${DATA_LINE}
-echo ${DATA_LINE} > ${DATA_FILE}
+echo ${DATA_LINE} > ${OUTPUT_DATA_FILE}
