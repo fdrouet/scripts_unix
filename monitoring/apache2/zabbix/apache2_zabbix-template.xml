@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<zabbix_export version="1.0" date="21.07.10" time="12.52">
+	<hosts>
+		<host name="Template_Apache2_Server">
+			<ip>0.0.0.0</ip>
+			<port>10050</port>
+			<status>3</status>
+			<groups>
+				<group>Templates</group>
+			</groups>
+			<items>
+				<item type="0" key="apache2.cpuload" value_type="0">
+					<description>Apache2 CPU Load</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+						<application>CPU</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.reqpersec" value_type="0">
+					<description>Apache2 Requests Per Sec</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.bytespersec" value_type="0">
+					<description>Apache2 Bytes Per Sec</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<units>Bps</units>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.bytesperreq" value_type="0">
+					<description>Apache2 Bytes Per Request</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.workers.max" value_type="3">
+					<description>Apache2 Max Workers</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.workers.total" value_type="3">
+					<description>Apache2 Total Workers</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.workers.busy" value_type="3">
+					<description>Apache2 Busy Workers</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.workers.idle" value_type="3">
+					<description>Apache2 Idle Workers</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.waiting" value_type="3">
+					<description>Apache2 Waiting for Connection Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.starting" value_type="3">
+					<description>Apache2 Starting up Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.reading" value_type="3">
+					<description>Apache2 Reading Request Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.sending" value_type="3">
+					<description>Apache2 Sending Reply Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.keepalive" value_type="3">
+					<description>Apache2 Keepalive (read) Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.dnslook" value_type="3">
+					<description>Apache2 DNS Lookup Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.closing" value_type="3">
+					<description>Apache2 Closing connection Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.logging" value_type="3">
+					<description>Apache2 Logging Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.finshing" value_type="3">
+					<description>Apache2 Gracefully finishing Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.cleanup" value_type="3">
+					<description>Apache2 Idle cleanup of worker Slots</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+				<item type="0" key="apache2.slot.open" value_type="3">
+					<description>Apache2 Open slots with no current process</description>
+					<delay>60</delay>
+					<history>90</history>
+					<trends>365</trends>
+					<formula>1</formula>
+					<applications>
+						<application>Apache2</application>
+					</applications>
+				</item>
+			</items>
+			<graphs>
+				<graph name="Apache2 Workers" width="900" height="200">
+					<show_work_period>1</show_work_period>
+					<show_triggers>1</show_triggers>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<graph_elements>
+						<graph_element item="{HOSTNAME}:apache2.workers.busy">
+							<drawtype>1</drawtype>
+							<color>009900</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.workers.idle">
+							<color>0000FF</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.workers.total">
+							<color>FF0000</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+				<graph name="Apache2 Bytes" width="900" height="200">
+					<show_work_period>1</show_work_period>
+					<show_triggers>1</show_triggers>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<graph_elements>
+						<graph_element item="{HOSTNAME}:apache2.bytespersec">
+							<color>0000FF</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.bytesperreq">
+							<color>009900</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
+			</graphs>
+		</host>
+	</hosts>
+</zabbix_export>
