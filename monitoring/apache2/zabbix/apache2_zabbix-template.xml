@@ -250,6 +250,93 @@
 						</graph_element>
 					</graph_elements>
 				</graph>
+				<graph name="Apache2 Scoreboard" width="900" height="200">
+					<show_work_period>1</show_work_period>
+					<show_triggers>1</show_triggers>
+					<yaxismin>0.0000</yaxismin>
+					<yaxismax>100.0000</yaxismax>
+					<graph_elements>
+						<graph_element item="{HOSTNAME}:apache2.slot.open">
+							<drawtype>1</drawtype>
+							<color>CCFFCC</color>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.waiting">
+							<drawtype>2</drawtype>
+							<sortorder>90</sortorder>
+							<color>9999FF</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.starting">
+							<drawtype>3</drawtype>
+							<sortorder>100</sortorder>
+							<color>FFCCCC</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.reading">
+							<sortorder>110</sortorder>
+							<color>009900</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.sending">
+							<sortorder>120</sortorder>
+							<color>0000FF</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.keepalive">
+							<drawtype>2</drawtype>
+							<sortorder>130</sortorder>
+							<color>FF66FF</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.dnslook">
+							<sortorder>140</sortorder>
+							<color>999999</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.closing">
+							<sortorder>150</sortorder>
+							<color>666600</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.logging">
+							<sortorder>160</sortorder>
+							<color>FFFF00</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.finshing">
+							<sortorder>170</sortorder>
+							<color>33FF33</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+						<graph_element item="{HOSTNAME}:apache2.slot.cleanup">
+							<sortorder>180</sortorder>
+							<color>009900</color>
+							<yaxisside>1</yaxisside>
+							<calc_fnc>2</calc_fnc>
+							<periods_cnt>5</periods_cnt>
+						</graph_element>
+					</graph_elements>
+				</graph>
 			</graphs>
 		</host>
 	</hosts>
