@@ -1,3 +1,6 @@
 * Apache 2
-
 - monitoring server-status details with Zabbix
+
+* MySQL
+- simple backup script (1 compressed dump per database)
+
