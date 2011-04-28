@@ -47,7 +47,7 @@ cecho () {
   local default_msg="No message passed."
   message=${1:-$default_msg}   # Defaults to default message.
   color=${2:-$black}           # Defaults to black, if not specified.
-  if [ "$COLORIZED" == "true" ]; then
+  if [ "$COLORIZED" = "true" ]; then
     printf "$color$message\n"; tput sgr0
   else
     printf "$message\n"
