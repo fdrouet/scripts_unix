@@ -2,8 +2,6 @@
 #
 # $Id$
 #
-# Copyright (C) 2003-2010 eXo Platform SAS.
-#
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Affero General Public License
 # as published by the Free Software Foundation; either version 3
@@ -17,25 +15,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, see<http://www.gnu.org/licenses/>.
 #
-#
-# Purpose : launch dacapo benchmarks
-#
 
+# Default settings
+JAVA_OPTS="-Xms128m -Xmx512m"
 COLORIZED=false
+WORKSPACE=`dirname $0`
 
 usage() {
 cat << EOF
 usage: $0 options
 
-This script launch DaCapo Benchmarks with a predifined test configuration
+This script launch DaCapo benchmarks with a predifined test configuration
 and print the result on the stdout.
+
+More infos about DaCapo benchmark suite : http://www.dacapobench.org/
 
 OPTIONS:
    -h      Show this message
+
    -j      Path to the JAVA_HOME directory to use
            (ex: /app/runtimes/java/JAVA_6)
-   -c      add color to the output of the script (default=$COLORIZED)
-           
+
+   -o      the JAVA_OPTS you want to use for the bench 
+           (default: "$JAVA_OPTS")
+           (ex: "-server -Xms128m -Xmx512m")
+
+   -c      add color to the output of the script 
+           (default: "$COLORIZED")
+
+   -w      specify the working directory for the script
+           the directory must exist and writable.
+           (default: "$WORKSPACE")
    
 EOF
 }
@@ -52,7 +62,7 @@ cecho () {
   else
     printf "$message\n"
   fi
-#  echo "$message"; tput sgr0
+# echo "$message"; tput sgr0
 #  return
 }
 echo_red () {
@@ -66,7 +76,7 @@ echo_yellow () {
 }
 
 
-while getopts "cj:" OPTION
+while getopts "hcj:w:o:" OPTION
 do
     case $OPTION in
         h)
@@ -85,6 +95,12 @@ do
               exit 1
             fi
             ;;
+        o)
+            JAVA_OPTS="$OPTARG"
+            ;;
+        w)
+            WORKSPACE="$OPTARG"
+            ;;
         *)
             echo_red "#ERROR# unknow argument : ($OPTIND) - $OPTION = $OPTARG"
             exit 1
@@ -96,40 +112,48 @@ do
     esac
 done
 
-if [ ! -z "$WORKSPACE" ]; then
-  BASE_DIR=$WORKSPACE
-else
-  BASE_DIR=`dirname $0`
+# Check the workspace
+if [ ! -d "$WORKSPACE" ]; then
+	echo_red "#ERROR# the workspace directory must exist"
+	echo_red "        $WORKSPACE"
+	exit 1
+elif [ ! -w "$WORKSPACE" ]; then
+	echo_red "#ERROR# the workspace directory must be writable"
+	echo_red "        $WORKSPACE"
+	exit 1
 fi
 
-
+# Check the java settings
 if [ ! -z "$JAVA_HOME" ]; then
   JAVA_PATH=$JAVA_HOME"/bin/java"
 else
   JAVA_PATH=`which java`
 fi
 
-# which Java version
-#JAVA_VERSION="`$JAVA_PATH -version 2>&1`"
-JAVA_VERSION=$(java -version 2>&1 | awk 'NR==1{print $3}')
-JAVA_VERSION=$(java -version 2>&1 | awk 'NR==1{print $3}')
-
+JVM_VERSION_STR=$($JAVA_PATH $JAVA_OPTS -version 2>&1)
 
 echo_yellow "######################################################################################"
 echo_yellow "# DaCapo Benchmark 9.12 ...                                                          #"
 echo_yellow "######################################################################################"
 echo_yellow "# "
-echo_yellow "# JAVA VERSION = "$($JAVA_PATH -version 2>&1 | awk 'NR==1{print $3}')
-echo_yellow "#                 $($JAVA_PATH -version 2>&1 | awk 'NR==3{print $0}')"
-echo_yellow "# JAVA_HOME    = "$JAVA_HOME
-echo_yellow "# JAVA PATH    = "$JAVA_PATH
-echo_yellow "# WORKSPACE    = "$BASE_DIR
+echo_yellow "# HOSTNAME     = $(hostname -s)"
+echo_yellow "# SYSTEM       = $(uname -a)"
+echo_yellow "# "
+echo_yellow "# JAVA VERSION = $(echo "$JVM_VERSION_STR" | awk 'NR==1{print $3}')"
+echo_yellow "#                $(echo "$JVM_VERSION_STR" | awk 'NR==2{print $0}')"
+echo_yellow "#                $(echo "$JVM_VERSION_STR" | awk 'NR==3{print $0}')"
+echo_yellow "# JAVA_HOME    = $JAVA_HOME"
+echo_yellow "# JAVA PATH    = $JAVA_PATH"
+echo_yellow "# JAVA OPTS    = $JAVA_OPTS"
+echo_yellow "# "
+echo_yellow "# WORKSPACE    = $WORKSPACE"
 echo_yellow "# "
 echo_yellow "######################################################################################"
+#exit 1
 
-if [ ! -f $BASE_DIR/dacapo-9.12-bach.jar ]; then
+if [ ! -f $WORKSPACE/dacapo-9.12-bach.jar ]; then
   echo_yellow "Downloading dacapo-9.12 bench..."
-  curl -L http://downloads.sourceforge.net/project/dacapobench/9.12-bach/dacapo-9.12-bach.jar -o $BASE_DIR/dacapo-9.12-bach.jar
+  curl -L http://downloads.sourceforge.net/project/dacapobench/9.12-bach/dacapo-9.12-bach.jar -o $WORKSPACE/dacapo-9.12-bach.jar
 fi
 
 
@@ -137,10 +161,10 @@ benchme() {
   local COUNT=$1
   local BENCH=$2
 
-  rm -f dacapo-bench-$BENCH.log
+  rm -f $WORKSPACE/dacapo-bench-$BENCH.log
 #  echo "benching dacapo-9.12 - $BENCH - $COUNT iterations at `date`"
-  $JAVA_PATH $JAVA_OPTS -jar $BASE_DIR/dacapo-9.12-bach.jar -n $COUNT $BENCH >>dacapo-bench-$BENCH.log 2>&1
-  cat dacapo-bench-$BENCH.log | grep PASSED
+  $JAVA_PATH $JAVA_OPTS -jar $WORKSPACE/dacapo-9.12-bach.jar -n $COUNT $BENCH >> $WORKSPACE/dacapo-bench-$BENCH.log 2>&1
+  cat $WORKSPACE/dacapo-bench-$BENCH.log | grep PASSED
 }
 
 benchme 10 avrora
