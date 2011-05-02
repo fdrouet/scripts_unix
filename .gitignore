@@ -1,6 +1,8 @@
 *.swp
 
 bench/*.jar
+bench/*/*.jar
 bench/*.log
+bench/*/*.log
 bench/scratch/
 
